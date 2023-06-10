@@ -133,7 +133,7 @@ public class ClientUnitTest1
     [InlineData("alexmariano123com")]
     [InlineData("alex@yahooorg")]
     [Trait("Client", "Email")]
-    public void CreateClient_InvalidEmailFormat_DomainExceptionInvalidEmail(string email)
+    public void CreateClient_InvalidEmailFormat_DomainExceptionInvalidEmailFormat(string email)
     {
         Action action = () =>
         {
