@@ -43,7 +43,7 @@ public class Client : Entity
         DomainExceptionValidation.When(string.IsNullOrEmpty(email),
             "Invalid email. Email is required.");
 
-        DomainExceptionValidation.When(ValidateEmail(email),
+        DomainExceptionValidation.When(!ValidateEmail(email),
             "Invalid email, must be a valid one.");
 
         DomainExceptionValidation.When(email.Length > 150,
