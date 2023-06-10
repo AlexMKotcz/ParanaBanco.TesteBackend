@@ -31,14 +31,14 @@ public class Client : Entity
             "Invalid fullName. FullName is required.");
 
         DomainExceptionValidation.When(!fullName.Contains(' '),
-            "Invalid fullname. First and Surname are required.");
+            "Invalid fullname. Both first and surname are required.");
 
         string[] names = fullName.Split(' ');
         DomainExceptionValidation.When(names.First().Length < 3 || names.Last().Length < 3,
             "Invalid fullname, too short, minimum 3 characters for both first and surname.");
 
         DomainExceptionValidation.When(fullName.Length > 150,
-            "Invalid fullname, too long, maximum 150 characters.");
+            "Invalid fullname, too long, maximum 150 characters in total.");
 
         DomainExceptionValidation.When(string.IsNullOrEmpty(email),
             "Invalid email. Email is required.");
