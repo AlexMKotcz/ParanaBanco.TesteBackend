@@ -33,14 +33,22 @@ public class Client : Entity
         DomainExceptionValidation.When(!fullName.Contains(' '),
             "Invalid fullname. First and Surname are required.");
 
-        DomainExceptionValidation.When(fullName.Split(' ').Any(s => s.Length < 3),
-            "Invalid fullname, too short, minimum 3 characters for both first and surname");
+        string[] names = fullName.Split(' ');
+        DomainExceptionValidation.When(names.First().Length < 3 || names.Last().Length < 3r,
+            "Invalid fullname, too short, minimum 3 characters for both first and surname.");
 
         DomainExceptionValidation.When(string.IsNullOrEmpty(email),
             "Invalid email. Email is required.");
 
         DomainExceptionValidation.When(ValidateEmail(email),
-            "Invalid email, not in correct format.");
+            "Invalid email, must be a valid one.");
+
+        DomainExceptionValidation.When(phones == null || phones.Count == 0,
+            "Invalid phone list. At least one phone is required.");
+
+        FullName = fullName;
+        Email = email;
+        Phones = phones;
     }
 
     private static bool ValidateEmail(string email)
