@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParanaBanco.TesteBackend.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParanaBanco.TesteBackend.IOC", "ParanaBanco.TesteBackend.IOC\ParanaBanco.TesteBackend.IOC.csproj", "{AC0F65C3-529B-4646-82C0-7F4A2541D93B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParanaBanco.TesteBackend.Domain.Tests", "ParanaBanco.TesteBackend.Domain.Tests\ParanaBanco.TesteBackend.Domain.Tests.csproj", "{0D59B6EA-A6E2-4EDC-8979-A7259E53FF05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{AC0F65C3-529B-4646-82C0-7F4A2541D93B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC0F65C3-529B-4646-82C0-7F4A2541D93B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC0F65C3-529B-4646-82C0-7F4A2541D93B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D59B6EA-A6E2-4EDC-8979-A7259E53FF05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D59B6EA-A6E2-4EDC-8979-A7259E53FF05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D59B6EA-A6E2-4EDC-8979-A7259E53FF05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D59B6EA-A6E2-4EDC-8979-A7259E53FF05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
