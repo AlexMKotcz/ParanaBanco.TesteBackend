@@ -1,6 +1,6 @@
 ﻿namespace ParanaBanco.TesteBackend.Domain.Enums;
 
-public enum PhoneType
+public enum EPhoneType
 {
     Mobile = 1,
     LandLine = 2
