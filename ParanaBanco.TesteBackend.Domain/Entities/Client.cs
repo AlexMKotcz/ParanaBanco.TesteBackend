@@ -37,11 +37,17 @@ public class Client : Entity
         DomainExceptionValidation.When(names.First().Length < 3 || names.Last().Length < 3r,
             "Invalid fullname, too short, minimum 3 characters for both first and surname.");
 
+        DomainExceptionValidation.When(fullName.Length > 150,
+            "Invalid fullname, too long, maximum 150 characters.");
+
         DomainExceptionValidation.When(string.IsNullOrEmpty(email),
             "Invalid email. Email is required.");
 
         DomainExceptionValidation.When(ValidateEmail(email),
             "Invalid email, must be a valid one.");
+
+        DomainExceptionValidation.When(email.Length > 150,
+            "Invalid email, too long, maximum 150 characters.");
 
         DomainExceptionValidation.When(phones == null || phones.Count == 0,
             "Invalid phone list. At least one phone is required.");

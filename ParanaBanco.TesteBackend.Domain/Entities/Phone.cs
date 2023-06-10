@@ -39,6 +39,9 @@ public class Phone : Entity
         DomainExceptionValidation.When(number.Length < 8,
             "Invalid number, too short, minimum 8 numbers.");
 
+        DomainExceptionValidation.When(number.Length > 9,
+            "Invalid number, too long, maximum 9 numbers.");
+
         DomainExceptionValidation.When(!number.All(char.IsDigit),
             "Invalid number, must be numeric.");
 
