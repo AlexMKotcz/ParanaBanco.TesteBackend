@@ -36,14 +36,14 @@ public class Phone : Entity
         DomainExceptionValidation.When(string.IsNullOrEmpty(number),
             "Invalid number. number is required.");
 
+        DomainExceptionValidation.When(!number.All(char.IsDigit),
+            "Invalid number, all chars must be numeric.");
+
         DomainExceptionValidation.When(number.Length < 8,
             "Invalid number, too short, minimum 8 numbers.");
 
         DomainExceptionValidation.When(number.Length > 9,
             "Invalid number, too long, maximum 9 numbers.");
-
-        DomainExceptionValidation.When(!number.All(char.IsDigit),
-            "Invalid number, must be numeric.");
 
         DomainExceptionValidation.When(!(type == EPhoneType.Mobile || type == EPhoneType.LandLine),
             "Invalid type, must be Mobile or LandLine.");
