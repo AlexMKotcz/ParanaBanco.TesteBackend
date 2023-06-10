@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 using ParanaBanco.TesteBackend.Application.Contracts.Requests;
 using ParanaBanco.TesteBackend.Application.Contracts.Responses;
 
-namespace ParanaBanco.TesteBackend.Application.Interfaces;
+namespace ParanaBanco.TesteBackend.Application.Interfaces.IService;
 public interface IClientService
 {
-    Task<IEnumerable<ClientResponse>> GetClients();
-    Task<ClientResponse> GetById(int? id);
     Task Add(ClientRequest client);
-
+    Task<IEnumerable<ClientResponse>> GetClients();
+    Task<ClientResponse> GetByFullPhone(int? ddd, string? number);
+    Task<ClientResponse> GetById(int? id);
     Task UpdateEmail(int clientId, string email);
     Task UpdatePhones(int clientId, IEnumerable<PhoneRequest> phones);
-    Task Remove(string email);
+    Task RemoveByEmail(string email);
 }
