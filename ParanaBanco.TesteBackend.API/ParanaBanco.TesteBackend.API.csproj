@@ -14,4 +14,8 @@
     <Folder Include="NovaPasta\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ParanaBanco.TesteBackend.Application\ParanaBanco.TesteBackend.Application.csproj" />
+  </ItemGroup>
+
 </Project>
