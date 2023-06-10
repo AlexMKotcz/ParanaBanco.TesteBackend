@@ -34,7 +34,7 @@ public class Client : Entity
             "Invalid fullname. First and Surname are required.");
 
         string[] names = fullName.Split(' ');
-        DomainExceptionValidation.When(names.First().Length < 3 || names.Last().Length < 3r,
+        DomainExceptionValidation.When(names.First().Length < 3 || names.Last().Length < 3,
             "Invalid fullname, too short, minimum 3 characters for both first and surname.");
 
         DomainExceptionValidation.When(fullName.Length > 150,
