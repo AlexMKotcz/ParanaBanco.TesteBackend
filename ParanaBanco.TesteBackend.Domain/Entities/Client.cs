@@ -55,7 +55,7 @@ public class Client : Entity
         DomainExceptionValidation.When(phones == null || phones.Count == 0,
             "Invalid phone list. At least one phone is required.");
 
-        Phones.ForEach(p => p = new Phone(p.Id, p.Number, p.Type));
+        phones.ForEach(p => p = new Phone(p.Id, p.DDD, p.Number, p.Type));
 
         FullName = fullName;
         Email = email;
