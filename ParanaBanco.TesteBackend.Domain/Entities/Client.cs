@@ -25,6 +25,9 @@ public class Client : Entity
         ValidateDomain(fullName, email, phones);
     }
 
+    public void Update(string fullName, string email, List<Phone> phones)
+        => ValidateDomain(fullName, email, phones);
+
     private void ValidateDomain(string fullName, string email, List<Phone> phones)
     {
         DomainExceptionValidation.When(string.IsNullOrEmpty(fullName),
@@ -51,6 +54,8 @@ public class Client : Entity
 
         DomainExceptionValidation.When(phones == null || phones.Count == 0,
             "Invalid phone list. At least one phone is required.");
+
+        Phones.ForEach(p => p = new Phone(p.Id, p.Number, p.Type));
 
         FullName = fullName;
         Email = email;

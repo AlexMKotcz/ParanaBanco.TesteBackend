@@ -9,6 +9,9 @@ public class Phone : Entity
     public string Number { get; set; }
     public EPhoneType Type { get; set; }
 
+    public int ClientId { get; set; }
+    public Client Client { get; set; }
+
     /// <summary>
     /// Private CTOR for ORM 
     /// </summary>

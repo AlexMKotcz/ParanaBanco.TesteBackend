@@ -16,6 +16,11 @@ public class ClientRepository : IClientRepository
         throw new NotImplementedException();
     }
 
+    public Task DeleteAsync(Client client)
+    {
+        throw new NotImplementedException();
+    }
+
     public IQueryable<Client> Get(Expression<Func<Client, bool>>? expression = null)
     {
         throw new NotImplementedException();
