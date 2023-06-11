@@ -2,7 +2,7 @@
 
 using ParanaBanco.TesteBackend.Domain.Entities;
 
-namespace ParanaBanco.TesteBackend.Domain.Interfaces.IRepository;
+namespace ParanaBanco.TesteBackend.Domain.Interfaces;
 public interface IPhoneRepository
 {
     Task AddAsync(Phone phone);
