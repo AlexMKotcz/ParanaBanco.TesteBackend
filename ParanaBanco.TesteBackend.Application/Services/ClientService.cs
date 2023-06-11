@@ -59,7 +59,7 @@ internal class ClientService : IClientService
         Client? client = await GetClientByIdWithoutContract(clientId)
             ?? throw new ArgumentException("Não foi encontrado o cliente com o id fornecido.");
 
-        client.Email = email;
+        client.Update(client.FullName, email, client.Phones);
 
         await _clientRepository.UpdateAsync(client);
     }
@@ -69,7 +69,7 @@ internal class ClientService : IClientService
         Client? client = await GetClientByIdWithoutContract(clientId)
             ?? throw new ArgumentException("Não foi encontrado o cliente com o id fornecido.");
 
-        client.Phones = _mapper.Map<IEnumerable<Phone>>(phones).ToList();
+        client.Update(client.FullName, client.Email, _mapper.Map<IEnumerable<Phone>>(phones).ToList());
 
         await _clientRepository.UpdateAsync(client);
     }
