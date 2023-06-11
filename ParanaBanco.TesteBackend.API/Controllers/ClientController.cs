@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
 using ParanaBanco.TesteBackend.Application.Interfaces.IService;
 
 namespace ParanaBanco.TesteBackend.API.Controllers;

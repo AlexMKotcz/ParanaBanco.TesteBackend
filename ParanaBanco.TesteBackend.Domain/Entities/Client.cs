@@ -3,7 +3,7 @@
 using ParanaBanco.TesteBackend.Domain.Validation;
 
 namespace ParanaBanco.TesteBackend.Domain.Entities;
-public class Client : Entity 
+public class Client : Entity
 {
     public string FullName { get; private set; }
     public string Email { get; private set; }

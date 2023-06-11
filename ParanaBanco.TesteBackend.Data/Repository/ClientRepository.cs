@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 
 using ParanaBanco.TesteBackend.Domain.Entities;
-using ParanaBanco.TesteBackend.Domain.Interfaces.IRepository;
+using ParanaBanco.TesteBackend.Domain.Interfaces;
 
 namespace ParanaBanco.TesteBackend.Data.Repository;
 public class ClientRepository : IClientRepository

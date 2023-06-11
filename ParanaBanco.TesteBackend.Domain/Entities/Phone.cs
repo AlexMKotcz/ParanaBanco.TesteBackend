@@ -1,6 +1,4 @@
-﻿using System.Net.Sockets;
-
-using ParanaBanco.TesteBackend.Domain.Enums;
+﻿using ParanaBanco.TesteBackend.Domain.Enums;
 using ParanaBanco.TesteBackend.Domain.Validation;
 
 namespace ParanaBanco.TesteBackend.Domain.Entities;

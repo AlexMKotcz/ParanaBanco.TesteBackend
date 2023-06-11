@@ -10,7 +10,7 @@ public struct PhoneRequest
     [Range(11, 99)]
     public int DDD { get; set; }
 
-    [Required(AllowEmptyStrings =false)]
+    [Required(AllowEmptyStrings = false)]
     [MinLength(8)]
     [MaxLength(9)]
     public string Number { get; set; }
