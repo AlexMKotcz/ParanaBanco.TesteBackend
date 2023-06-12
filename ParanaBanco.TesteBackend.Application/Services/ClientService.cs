@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-
+using ParanaBanco.TesteBackend.Application.Contracts.Parameters;
 using ParanaBanco.TesteBackend.Application.Contracts.Requests;
 using ParanaBanco.TesteBackend.Application.Contracts.Responses;
 using ParanaBanco.TesteBackend.Application.Interfaces;
@@ -46,20 +46,20 @@ public class ClientService : IClientService
         return _mapper.Map<IEnumerable<ClientResponse>>(clients);
     }
 
-    public async Task RemoveByEmail(string email)
+    public async Task RemoveByEmail(EmailParameter email)
     {
-        Client? client = await _repository.GetFirstOrDefaultAsync(_clientRepository.Get(c => c.Email.Equals(email)))
+        Client? client = await _repository.GetFirstOrDefaultAsync(_clientRepository.Get(c => c.Email.Equals(email.ToString())))
             ?? throw new ArgumentException("Não foi encontrado nenhum cliente com o email fornecido.");
 
         await _clientRepository.DeleteAsync(client);
     }
 
-    public async Task UpdateEmail(int clientId, string email)
+    public async Task UpdateEmail(int clientId, EmailParameter email)
     {
         Client? client = await GetClientByIdWithoutContract(clientId)
             ?? throw new ArgumentException("Não foi encontrado o cliente com o id fornecido.");
 
-        client.Update(client.FullName, email, client.Phones);
+        client.Update(client.FullName, email.ToString(), client.Phones);
 
         await _clientRepository.UpdateAsync(client);
     }
