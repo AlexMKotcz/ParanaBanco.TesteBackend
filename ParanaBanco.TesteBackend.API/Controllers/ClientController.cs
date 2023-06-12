@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
 using ParanaBanco.TesteBackend.Application.Contracts.Parameters;
 using ParanaBanco.TesteBackend.Application.Contracts.Requests;
 using ParanaBanco.TesteBackend.Application.Contracts.Responses;
@@ -20,6 +21,7 @@ public class ClientController : ControllerBase
 
     [HttpPost("AddClient")]
     [ProducesResponseType(typeof(ClientResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> InsertClient(ClientRequest client)
     {
         return Created("Clients/{id}", await _clientService.Add(client));
@@ -41,6 +43,8 @@ public class ClientController : ControllerBase
 
     [HttpPatch("UpdateEmail")]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateClientEmail(int clientId, EmailParameter email)
     {
         await _clientService.UpdateEmail(clientId, email);
@@ -49,6 +53,8 @@ public class ClientController : ControllerBase
 
     [HttpPatch("UpdatePhones")]
     [ProducesResponseType(typeof(IEnumerable<PhoneRequest>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateClientPhones(int clientId, IEnumerable<PhoneRequest> phones)
     {
         await _clientService.UpdatePhones(clientId, phones);
@@ -56,11 +62,13 @@ public class ClientController : ControllerBase
     }
 
     [HttpDelete("DeleteByEmail")]
-    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteClientByEmail(EmailParameter email)
     {
         await _clientService.RemoveByEmail(email);
-        return Ok(email.ToString());
+        return Ok();
     }
 
 }
