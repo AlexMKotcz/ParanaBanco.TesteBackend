@@ -18,6 +18,13 @@ public class ClientController : ControllerBase
         _clientService = clientService;
     }
 
+    [HttpPost("AddClient")]
+    [ProducesResponseType(typeof(ClientResponse), StatusCodes.Status201Created)]
+    public async Task<IActionResult> InsertClient(ClientRequest client)
+    {
+        return Created("Clients/{id}", await _clientService.Add(client));
+    }
+
     [HttpGet]
     [ProducesResponseType(typeof(ClientResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetClients()
@@ -40,14 +47,6 @@ public class ClientController : ControllerBase
         return Ok(email.ToString());
     }
 
-    [HttpDelete("DeleteByEmail")]
-    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-    public async Task<IActionResult> DeleteClientByEmail(EmailParameter email)
-    {
-        await _clientService.RemoveByEmail(email);
-        return Ok(email.ToString());
-    }
-
     [HttpPatch("UpdatePhones")]
     [ProducesResponseType(typeof(IEnumerable<PhoneRequest>), StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateClientPhones(int clientId, IEnumerable<PhoneRequest> phones)
@@ -56,10 +55,12 @@ public class ClientController : ControllerBase
         return Ok(phones);
     }
 
-    [HttpPost("NewClient")]
-    [ProducesResponseType(typeof(ClientResponse), StatusCodes.Status201Created)]
-    public async Task<IActionResult> InsertClient(ClientRequest client)
+    [HttpDelete("DeleteByEmail")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    public async Task<IActionResult> DeleteClientByEmail(EmailParameter email)
     {
-        return Created("Clients/{id}", await _clientService.Add(client));
+        await _clientService.RemoveByEmail(email);
+        return Ok(email.ToString());
     }
+
 }
