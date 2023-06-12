@@ -53,7 +53,7 @@ public class ClientService : IClientService
 
     public async Task RemoveByEmail(EmailParameter email)
     {
-        Client? client = await _repository.GetFirstOrDefaultAsync(_clientRepository.Get(c => c.Email.Equals(email.ToString())))
+        Client client = await _repository.GetFirstOrDefaultAsync(_clientRepository.Get(c => c.Email.Equals(email.ToString())))
             ?? throw new EntryNotFoundException("Não foi encontrado nenhum cliente com o email fornecido.");
 
         await _clientRepository.DeleteAsync(client);
@@ -61,7 +61,7 @@ public class ClientService : IClientService
 
     public async Task UpdateEmail(int clientId, EmailParameter email)
     {
-        Client? client = await GetClientByIdWithoutContract(clientId)
+        Client client = await GetClientByIdWithoutContract(clientId)
             ?? throw new EntryNotFoundException("Não foi encontrado o cliente com o id fornecido.");
 
         client.Update(client.FullName, email.ToString(), client.Phones);
