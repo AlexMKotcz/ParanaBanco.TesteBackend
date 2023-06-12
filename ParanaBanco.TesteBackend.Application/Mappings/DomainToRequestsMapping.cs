@@ -8,7 +8,7 @@ public class DomainToRequestsMapping : Profile
 {
     public DomainToRequestsMapping()
     {
-        CreateMap<Client, ClientRequest>().ForMember(cr => cr.Email, map => map.MapFrom(c => c.Email)).ReverseMap();
+        CreateMap<Client, ClientRequest>().ReverseMap();
 
         CreateMap<Phone, PhoneRequest>().ReverseMap();
     }
