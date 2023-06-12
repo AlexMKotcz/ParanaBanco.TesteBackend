@@ -2,12 +2,12 @@
 
 using ParanaBanco.TesteBackend.Application.Contracts.Requests;
 using ParanaBanco.TesteBackend.Application.Contracts.Responses;
-using ParanaBanco.TesteBackend.Application.Interfaces.IService;
+using ParanaBanco.TesteBackend.Application.Interfaces;
 using ParanaBanco.TesteBackend.Domain.Entities;
 using ParanaBanco.TesteBackend.Domain.Interfaces;
 
 namespace ParanaBanco.TesteBackend.Application.Services;
-internal class ClientService : IClientService
+public class ClientService : IClientService
 {
     private readonly IClientRepository _clientRepository;
     private readonly IRepository _repository;
