@@ -1,4 +1,5 @@
-using ParanaBanco.TesteBackend.Domain.Validation;
+using ParanaBanco.TesteBackend.Domain.Exceptions;
+using ParanaBanco.TesteBackend.Domain.Exceptions.Validations;
 using ParanaBanco.TesteBackend.IOC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,12 +45,14 @@ app.Map("/error", (HttpContext http) =>
             : $"Message: {error.Message}";
 
         if (error is DomainExceptionValidation)
-            return Results.Problem(title: "Validation exception", detail: errorMessage, statusCode: 400);
+            return Results.Problem(title: "Validation exception", detail: errorMessage, statusCode: StatusCodes.Status400BadRequest);
         else if (error is ArgumentException)
-            return Results.Problem(title: "Argument exception", detail: errorMessage, statusCode: 400);
+            return Results.Problem(title: "Argument exception", detail: errorMessage, statusCode: StatusCodes.Status400BadRequest);
+        else if (error is EntryNotFoundException)
+            return Results.Problem(title: "Entry not found", detail: errorMessage, statusCode: StatusCodes.Status404NotFound);
     }
 
-    return Results.Problem(title: "an error ocurred", detail: errorMessage ?? "Details not available.", statusCode: 500);
+    return Results.Problem(title: "an error ocurred", detail: errorMessage ?? "Details not available.", statusCode: StatusCodes.Status500InternalServerError);
 });
 
 app.Run();
