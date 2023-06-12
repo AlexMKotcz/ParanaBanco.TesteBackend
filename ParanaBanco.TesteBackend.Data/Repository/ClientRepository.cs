@@ -1,33 +1,74 @@
 ﻿using System.Linq.Expressions;
 
+using Microsoft.EntityFrameworkCore;
+
 using ParanaBanco.TesteBackend.Domain.Entities;
 using ParanaBanco.TesteBackend.Domain.Interfaces;
 
 namespace ParanaBanco.TesteBackend.Data.Repository;
 public class ClientRepository : IClientRepository
 {
-    public Task AddAsync(Client client)
+    private readonly DataDbContext _context;
+
+    public ClientRepository(DataDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    public IQueryable<int> Count(Expression<Func<Client, bool>>? expression = null)
+    public async Task AddAsync(Client client)
     {
-        throw new NotImplementedException();
+        Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction? transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            _context.Clients.Add(client);
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
     }
 
-    public Task DeleteAsync(Client client)
+    public async Task DeleteAsync(Client client)
     {
-        throw new NotImplementedException();
+        Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction? transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            _context.Clients.Remove(client);
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
     }
 
     public IQueryable<Client> Get(Expression<Func<Client, bool>>? expression = null)
     {
-        throw new NotImplementedException();
+        return expression != null
+            ? _context.Clients.Where(expression).Include(x => x.Phones).AsNoTracking()
+            : _context.Clients.Include(x => x.Phones).AsNoTracking();
     }
 
-    public Task UpdateAsync(Client client)
+    public async Task UpdateAsync(Client client)
     {
-        throw new NotImplementedException();
+        Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction? transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            _ = _context.Clients.Attach(client);
+            _ = _context.Entry(client).State = EntityState.Modified;
+
+            _ = await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
     }
 }

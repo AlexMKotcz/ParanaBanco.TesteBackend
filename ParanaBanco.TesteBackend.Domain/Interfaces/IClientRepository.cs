@@ -6,8 +6,6 @@ namespace ParanaBanco.TesteBackend.Domain.Interfaces;
 public interface IClientRepository
 {
     Task AddAsync(Client client);
-    IQueryable<int> Count(Expression<Func<Client, bool>>? expression = null);
-
     IQueryable<Client> Get(Expression<Func<Client, bool>>? expression = null);
 
     Task UpdateAsync(Client client);
