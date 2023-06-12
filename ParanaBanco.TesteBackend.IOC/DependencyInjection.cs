@@ -43,7 +43,7 @@ public static class DependencyInjection
     {
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "TesteBackend.API", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "TesteBackend.API", Version = "v1", Description = "Teste para vaga de analista desenvolvedor backend pleno." });
         });
         return services;
     }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 using ParanaBanco.TesteBackend.Application.Contracts.Parameters;
 
 namespace ParanaBanco.TesteBackend.Application.Contracts.Requests;

@@ -85,9 +85,9 @@ public class ClientService : IClientService
 
     private static List<Phone> GetAddedPhones(List<Phone> requestList, Client clientDatabase)
     {
-        List<Phone> phones = 
+        List<Phone> phones =
             requestList.ExceptBy(
-                clientDatabase.Phones.Select(phoneDb => new { phoneDb.DDD, phoneDb.Number, phoneDb.Type }), 
+                clientDatabase.Phones.Select(phoneDb => new { phoneDb.DDD, phoneDb.Number, phoneDb.Type }),
                 phoneRequest => new { phoneRequest.DDD, phoneRequest.Number, phoneRequest.Type })
             .ToList();
 
