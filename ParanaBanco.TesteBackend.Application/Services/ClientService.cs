@@ -10,10 +10,10 @@ namespace ParanaBanco.TesteBackend.Application.Services;
 public class ClientService : IClientService
 {
     private readonly IClientRepository _clientRepository;
-    private readonly IRepository _repository;
+    private readonly IRepositoryProcesser _repository;
     private readonly IMapper _mapper;
 
-    public ClientService(IClientRepository clientRepository, IRepository repository, IMapper mapper)
+    public ClientService(IClientRepository clientRepository, IRepositoryProcesser repository, IMapper mapper)
     {
         _clientRepository = clientRepository;
         _repository = repository;

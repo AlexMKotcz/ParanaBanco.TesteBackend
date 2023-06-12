@@ -4,7 +4,7 @@ using ParanaBanco.TesteBackend.Domain.Interfaces;
 
 namespace ParanaBanco.TesteBackend.Data.Repository;
 
-public class RepositoryProcesser : IRepository
+public class RepositoryProcesser : IRepositoryProcesser
 {
     public async Task<bool> AnyAsync<T>(IQueryable<T> query) => await query.AnyAsync();
 

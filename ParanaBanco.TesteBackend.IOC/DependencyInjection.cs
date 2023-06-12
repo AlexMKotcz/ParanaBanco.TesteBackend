@@ -15,6 +15,8 @@ public static class DependencyInjection
     {
         services.AddScoped<IClientRepository, ClientRepository>();
 
+        services.AddSingleton<IRepositoryProcesser, RepositoryProcesser>();
+
         return services;
     }
 

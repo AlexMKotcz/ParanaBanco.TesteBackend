@@ -1,6 +1,6 @@
 ﻿namespace ParanaBanco.TesteBackend.Domain.Interfaces;
 
-public interface IRepository
+public interface IRepositoryProcesser
 {
     Task<T?> GetFirstOrDefaultAsync<T>(IQueryable<T> query);
     Task<IEnumerable<T>> GetToListAsync<T>(IQueryable<T> query);
