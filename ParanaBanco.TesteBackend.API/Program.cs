@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 using ParanaBanco.TesteBackend.Domain.Exceptions;
 using ParanaBanco.TesteBackend.Domain.Exceptions.Validations;
 using ParanaBanco.TesteBackend.IOC;
@@ -11,7 +13,10 @@ builder.Services
     .AddServices()
     .AddSwaggerInfo();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+{
+    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
