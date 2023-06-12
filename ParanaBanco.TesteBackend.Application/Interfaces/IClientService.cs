@@ -1,7 +1,7 @@
 ﻿using ParanaBanco.TesteBackend.Application.Contracts.Requests;
 using ParanaBanco.TesteBackend.Application.Contracts.Responses;
 
-namespace ParanaBanco.TesteBackend.Application.Interfaces.IService;
+namespace ParanaBanco.TesteBackend.Application.Interfaces;
 public interface IClientService
 {
     Task<ClientResponse> Add(ClientRequest client);
