@@ -5,9 +5,9 @@ namespace ParanaBanco.TesteBackend.Domain.Entities;
 
 public class Phone : Entity
 {
-    public int DDD { get; set; }
-    public string Number { get; set; }
-    public EPhoneType Type { get; set; }
+    public int DDD { get; private set; }
+    public string Number { get; private set; }
+    public EPhoneType Type { get; private set; }
 
     public int ClientId { get; set; }
     public Client Client { get; set; }
