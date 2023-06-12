@@ -13,6 +13,7 @@ public struct PhoneRequest
     [Required(AllowEmptyStrings = false)]
     [MinLength(8)]
     [MaxLength(9)]
+    [RegularExpression("^[0-9]*$", ErrorMessage = "Number must be numeric")]
     public string Number { get; set; }
 
     [Required]
