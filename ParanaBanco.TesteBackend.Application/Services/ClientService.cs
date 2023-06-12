@@ -64,6 +64,9 @@ public class ClientService : IClientService
         Client client = await GetClientByIdWithoutContract(clientId)
             ?? throw new EntryNotFoundException("Não foi encontrado o cliente com o id fornecido.");
 
+        if (await _repository.AnyAsync(_clientRepository.Get(c => c.Email == client.Email.ToString() && c.Id != client.Id)))
+            throw new ArgumentException("Já existe um cliente com o e-mail cadastrado!");
+
         client.Update(client.FullName, email.ToString(), client.Phones);
 
         await _clientRepository.UpdateAsync(client);
