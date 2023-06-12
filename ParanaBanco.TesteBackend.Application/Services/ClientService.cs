@@ -4,6 +4,7 @@ using ParanaBanco.TesteBackend.Application.Contracts.Requests;
 using ParanaBanco.TesteBackend.Application.Contracts.Responses;
 using ParanaBanco.TesteBackend.Application.Interfaces;
 using ParanaBanco.TesteBackend.Domain.Entities;
+using ParanaBanco.TesteBackend.Domain.Exceptions;
 using ParanaBanco.TesteBackend.Domain.Interfaces;
 
 namespace ParanaBanco.TesteBackend.Application.Services;
@@ -52,7 +53,7 @@ public class ClientService : IClientService
     public async Task RemoveByEmail(EmailParameter email)
     {
         Client? client = await _repository.GetFirstOrDefaultAsync(_clientRepository.Get(c => c.Email.Equals(email.ToString())))
-            ?? throw new ArgumentException("Não foi encontrado nenhum cliente com o email fornecido.");
+            ?? throw new EntryNotFoundException("Não foi encontrado nenhum cliente com o email fornecido.");
 
         await _clientRepository.DeleteAsync(client);
     }
@@ -60,7 +61,7 @@ public class ClientService : IClientService
     public async Task UpdateEmail(int clientId, EmailParameter email)
     {
         Client? client = await GetClientByIdWithoutContract(clientId)
-            ?? throw new ArgumentException("Não foi encontrado o cliente com o id fornecido.");
+            ?? throw new EntryNotFoundException("Não foi encontrado o cliente com o id fornecido.");
 
         client.Update(client.FullName, email.ToString(), client.Phones);
 
@@ -70,7 +71,7 @@ public class ClientService : IClientService
     public async Task UpdatePhones(int clientId, IEnumerable<PhoneRequest> phones)
     {
         Client? client = await GetClientByIdWithoutContract(clientId)
-            ?? throw new ArgumentException("Não foi encontrado o cliente com o id fornecido.");
+            ?? throw new EntryNotFoundException("Não foi encontrado o cliente com o id fornecido.");
 
         client.Update(client.FullName, client.Email, _mapper.Map<IEnumerable<Phone>>(phones).ToList());
 
