@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ParanaBanco.TesteBackend.Application.Contracts.Parameters;
 
 namespace ParanaBanco.TesteBackend.Application.Contracts.Requests;
 public struct ClientRequest
@@ -9,9 +10,7 @@ public struct ClientRequest
     public string FullName { get; set; }
 
     [Required(AllowEmptyStrings = false)]
-    [MaxLength(150)]
-    [EmailAddress]
-    public string Email { get; set; }
+    public EmailParameter Email { get; set; }
 
     [Required]
     public IEnumerable<PhoneRequest> Phones { get; set; }
