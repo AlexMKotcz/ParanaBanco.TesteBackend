@@ -1,5 +1,5 @@
 ﻿using ParanaBanco.TesteBackend.Domain.Enums;
-using ParanaBanco.TesteBackend.Domain.Validation;
+using ParanaBanco.TesteBackend.Domain.Exceptions.Validations;
 
 namespace ParanaBanco.TesteBackend.Domain.Entities;
 

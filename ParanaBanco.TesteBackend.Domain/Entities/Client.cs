@@ -1,6 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-
-using ParanaBanco.TesteBackend.Domain.Validation;
+using ParanaBanco.TesteBackend.Domain.Exceptions.Validations;
 
 namespace ParanaBanco.TesteBackend.Domain.Entities;
 public class Client : Entity
