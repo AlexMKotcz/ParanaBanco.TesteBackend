@@ -2,7 +2,7 @@
 using FluentAssertions;
 
 using ParanaBanco.TesteBackend.Domain.Entities;
-using ParanaBanco.TesteBackend.Domain.Validation;
+using ParanaBanco.TesteBackend.Domain.Exceptions.Validations;
 
 using Xunit;
 namespace ParanaBanco.TesteBackend.Domain.Tests;
