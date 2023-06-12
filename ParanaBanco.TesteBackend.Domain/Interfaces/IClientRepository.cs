@@ -9,6 +9,7 @@ public interface IClientRepository
     IQueryable<Client> Get(Expression<Func<Client, bool>>? expression = null);
 
     Task UpdateAsync(Client client);
+    Task UpdateClientPhonesAsync(List<Phone> addedPhones, List<Phone> deletedPhones);
 
     Task DeleteAsync(Client client);
 }

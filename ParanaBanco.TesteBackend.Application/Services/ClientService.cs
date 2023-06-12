@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+
 using ParanaBanco.TesteBackend.Application.Contracts.Parameters;
 using ParanaBanco.TesteBackend.Application.Contracts.Requests;
 using ParanaBanco.TesteBackend.Application.Contracts.Responses;
@@ -34,7 +35,7 @@ public class ClientService : IClientService
     public async Task<IEnumerable<ClientResponse>> GetByFullPhone(int ddd, string number)
     {
         IEnumerable<Client> clients = await _repository.GetToListAsync(
-            _clientRepository.Get(c => c.Phones.Any(p => p.DDD == ddd || p.Number.Contains(number))));
+            _clientRepository.Get(c => c.Phones.Any(p => p.DDD == ddd && p.Number.Contains(number))));
         return _mapper.Map<IEnumerable<ClientResponse>>(clients);
     }
 
@@ -70,13 +71,32 @@ public class ClientService : IClientService
 
     public async Task UpdatePhones(int clientId, IEnumerable<PhoneRequest> phones)
     {
-        Client? client = await GetClientByIdWithoutContract(clientId)
+        Client client = await GetClientByIdWithoutContract(clientId)
             ?? throw new EntryNotFoundException("Não foi encontrado o cliente com o id fornecido.");
 
-        client.Update(client.FullName, client.Email, _mapper.Map<IEnumerable<Phone>>(phones).ToList());
+        List<Phone> phonesRequest = _mapper.Map<List<Phone>>(phones);
+        List<Phone> newPhones = GetAddedPhones(phonesRequest, client)
+            , deletedPhones = GetDeletedPhones(phonesRequest, client.Phones);
 
-        await _clientRepository.UpdateAsync(client);
+        client.Update(client.FullName, client.Email, phonesRequest);
+
+        await _clientRepository.UpdateClientPhonesAsync(newPhones, deletedPhones);
     }
+
+    private static List<Phone> GetAddedPhones(List<Phone> requestList, Client clientDatabase)
+    {
+        List<Phone> phones = 
+            requestList.ExceptBy(
+                clientDatabase.Phones.Select(phoneDb => new { phoneDb.DDD, phoneDb.Number, phoneDb.Type }), 
+                phoneRequest => new { phoneRequest.DDD, phoneRequest.Number, phoneRequest.Type })
+            .ToList();
+
+        phones.ForEach(p => p.ClientId = clientDatabase.Id);
+
+        return phones;
+    }
+    private static List<Phone> GetDeletedPhones(List<Phone> requestList, List<Phone> dataBaseList)
+        => dataBaseList.ExceptBy(requestList.Select(pDb => new { pDb.DDD, pDb.Number, pDb.Type }), pR => new { pR.DDD, pR.Number, pR.Type }).ToList();
 
     private async Task<Client?> GetClientByIdWithoutContract(int? id)
         => await _repository.GetFirstOrDefaultAsync(_clientRepository.Get(c => c.Id == id));

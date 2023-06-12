@@ -59,10 +59,28 @@ public class ClientRepository : IClientRepository
         Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction? transaction = await _context.Database.BeginTransactionAsync();
         try
         {
-            _ = _context.Clients.Attach(client);
-            _ = _context.Entry(client).State = EntityState.Modified;
+            _context.Clients.Attach(client);
+            _context.Entry(client).State = EntityState.Modified;
 
-            _ = await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+    }
+
+    public async Task UpdateClientPhonesAsync(List<Phone> addedPhones, List<Phone> deletedPhones)
+    {
+        Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction? transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            _context.Phones.AddRange(addedPhones);
+            _context.Phones.RemoveRange(deletedPhones);
+
+            await _context.SaveChangesAsync();
             await transaction.CommitAsync();
         }
         catch (Exception)
