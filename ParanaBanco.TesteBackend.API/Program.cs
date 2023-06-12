@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text.Json.Serialization;
 
 using ParanaBanco.TesteBackend.Domain.Exceptions;
@@ -11,7 +12,7 @@ builder.Services
     .AddRepositories()
     .AddDatabase(builder.Configuration)
     .AddServices()
-    .AddSwaggerInfo();
+    .AddSwaggerInfo(Assembly.GetExecutingAssembly().GetName().Name ?? "ParanaBanco.TesteBackEnd.API");
 
 builder.Services.AddControllers().AddJsonOptions(x =>
 {

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -39,11 +41,25 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddSwaggerInfo(this IServiceCollection services)
+    public static IServiceCollection AddSwaggerInfo(this IServiceCollection services, string currentAssemblyName)
     {
-        services.AddSwaggerGen(c =>
+        services.AddSwaggerGen(opt =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "TesteBackend.API", Version = "v1", Description = "Teste para vaga de analista desenvolvedor backend pleno." });
+            opt.SwaggerDoc("v1", new OpenApiInfo 
+            { 
+                Title = "TesteBackend.API",
+                Version = "v1",
+                Description = "Teste para vaga de analista desenvolvedor backend pleno.",
+                Contact = new OpenApiContact()
+                {
+                    Name = "Alex Mariano Kotcz",
+                    Email = "alexmariano129@gmail.com"
+                }
+            });
+
+            string xmlFile = currentAssemblyName + ".xml";
+            string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            opt.IncludeXmlComments(xmlPath);
         });
         return services;
     }
