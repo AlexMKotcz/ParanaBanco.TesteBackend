@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 
 using ParanaBanco.TesteBackend.Application.Interfaces;
 using ParanaBanco.TesteBackend.Application.Services;
@@ -35,6 +36,15 @@ public static class DependencyInjection
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+        return services;
+    }
+
+    public static IServiceCollection AddSwaggerInfo(this IServiceCollection services)
+    {
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "TesteBackend.API", Version = "v1" });
+        });
         return services;
     }
 }

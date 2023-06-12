@@ -1,9 +1,15 @@
+using ParanaBanco.TesteBackend.IOC;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services
+    .AddRepositories()
+    .AddDatabase(builder.Configuration)
+    .AddServices()
+    .AddSwaggerInfo();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -18,7 +24,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseStatusCodePages();
+app.UseRouting();
 
 app.MapControllers();
 

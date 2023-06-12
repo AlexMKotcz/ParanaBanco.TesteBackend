@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ParanaBanco.TesteBackend.Application\ParanaBanco.TesteBackend.Application.csproj" />
+    <ProjectReference Include="..\ParanaBanco.TesteBackend.IOC\ParanaBanco.TesteBackend.IoC.csproj" />
   </ItemGroup>
 
 </Project>
