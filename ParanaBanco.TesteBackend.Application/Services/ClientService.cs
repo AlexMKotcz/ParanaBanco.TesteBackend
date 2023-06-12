@@ -22,6 +22,9 @@ public class ClientService : IClientService
 
     public async Task<ClientResponse> Add(ClientRequest client)
     {
+        if (await _repository.AnyAsync(_clientRepository.Get(c => c.Email == client.Email.ToString())))
+            throw new ArgumentException("Já existe um cliente com o e-mail cadastrado!");
+
         Client clientEntity = _mapper.Map<Client>(client);
         await _clientRepository.AddAsync(clientEntity);
         return _mapper.Map<ClientResponse>(clientEntity);
