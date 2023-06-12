@@ -1,3 +1,4 @@
+using ParanaBanco.TesteBackend.Domain.Validation;
 using ParanaBanco.TesteBackend.IOC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,5 +29,27 @@ app.UseStatusCodePages();
 app.UseRouting();
 
 app.MapControllers();
+
+app.UseExceptionHandler("/error");
+app.Map("/error", (HttpContext http) =>
+{
+    var error = http.Features?.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>()?.Error;
+
+    string? errorMessage = null;
+
+    if (error != null)
+    {
+        errorMessage = app.Environment.IsDevelopment()
+            ? $"Message: {error.Message}\r\nInnerException:{error.InnerException}\r\nStackTrace:{error.StackTrace}"
+            : $"Message: {error.Message}";
+
+        if (error is DomainExceptionValidation)
+            return Results.Problem(title: "Validation exception", detail: errorMessage, statusCode: 400);
+        else if (error is ArgumentException)
+            return Results.Problem(title: "Argument exception", detail: errorMessage, statusCode: 400);
+    }
+
+    return Results.Problem(title: "an error ocurred", detail: errorMessage ?? "Details not available.", statusCode: 500);
+});
 
 app.Run();
